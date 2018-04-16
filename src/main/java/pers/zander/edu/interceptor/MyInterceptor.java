@@ -27,26 +27,27 @@ public class MyInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-//        System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
-        String username = (String) request.getSession().getAttribute("name");
-        String password = (String) request.getSession().getAttribute("tel");
-//      System.out.println("interceptor>>>"+username+"----"+password);
-//      HandlerMethod handler2=(HandlerMethod) handler; 
-        String type = request.getHeader("X-Requested-With");//请求类型
-//      System.out.println("type>>>"+type);
-        //查询是否为合法用户
-        if(username!=null&&password!=null){
-        	return true ;
-        }else{
-        	System.out.println("登陆验证失败...");
-        	if ("XMLHttpRequest".equalsIgnoreCase(type)) {//ajax请求
-        		PrintWriter out = response.getWriter();  
-        		out.print("900");  
-        	}else{
-	        	response.sendRedirect("/edupro/system/login.html");
-        	}
-        }
-        return false;// 只有返回true才会继续向下执行，返回false取消当前请求
+////        System.out.println(">>>MyInterceptor1>>>>>>>在请求处理之前进行调用（Controller方法调用之前）");
+//        String username = (String) request.getSession().getAttribute("name");
+//        String password = (String) request.getSession().getAttribute("tel");
+////      System.out.println("interceptor>>>"+username+"----"+password);
+////      HandlerMethod handler2=(HandlerMethod) handler; 
+//        String type = request.getHeader("X-Requested-With");//请求类型
+////      System.out.println("type>>>"+type);
+//        //查询是否为合法用户
+//        if(username!=null&&password!=null){
+//        	return true ;
+//        }else{
+//        	System.out.println("登陆验证失败...");
+//        	if ("XMLHttpRequest".equalsIgnoreCase(type)) {//ajax请求
+//        		PrintWriter out = response.getWriter();  
+//        		out.print("900");  
+//        	}else{
+//	        	response.sendRedirect("/edupro/system/login.html");
+//        	}
+//        }
+//        return false;// 只有返回true才会继续向下执行，返回false取消当前请求
+    	return true ;
     }
 
     @Override
