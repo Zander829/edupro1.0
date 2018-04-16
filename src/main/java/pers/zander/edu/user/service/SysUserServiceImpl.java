@@ -13,6 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
+import org.springframework.data.redis.core.StringRedisTemplate;
+import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
 import pers.zander.edu.user.domain.SysUser;
@@ -26,7 +28,8 @@ import pers.zander.edu.user.web.model.SysUserModel;
 @Service("SysUserService")
 public class SysUserServiceImpl implements SysUserService{
 
-	
+	@Autowired  
+	private StringRedisTemplate template; 
 	@Autowired
 	private SysUserRepository sysUserRepository;
 	@Override

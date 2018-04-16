@@ -6,11 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import pers.zander.edu.redis.service.IRedisService;
 import pers.zander.edu.utils.HttpClientUtils;
 import pers.zander.edu.utils.JSONUtils;
 import pers.zander.edu.web.BaseController;
@@ -18,6 +20,9 @@ import pers.zander.edu.web.BaseController;
 @RestController
 @RequestMapping(value = "/zutils")
 public class ZutilsController extends BaseController {
+
+	@Autowired
+	private IRedisService redis;
 
 	/**
 	 * 获取ip
@@ -29,10 +34,8 @@ public class ZutilsController extends BaseController {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = { "/getIp" }, method = { RequestMethod.POST,
-			RequestMethod.GET })
-	public Map<String, String> add(HttpServletResponse response,
-			HttpServletRequest request) {
+	@RequestMapping(value = { "/getIp" }, method = { RequestMethod.POST, RequestMethod.GET })
+	public Map<String, String> add(HttpServletResponse response, HttpServletRequest request) {
 		Map<String, String> map = new HashMap<String, String>();
 		String url = "https://ipip.yy.com/get_ip_info.php";
 		String ipjson = HttpClientUtils.getInstance().getStrResponseBodyAsStream(url, 3000, 3000, "GBK");
@@ -48,5 +51,16 @@ public class ZutilsController extends BaseController {
 		return map;
 	}
 
-	
+	/**
+	 * 获取redis数据
+	 * 
+	 * @param response
+	 * @param request
+	 * @return 2018年4月16日 下午8:20:38
+	 */
+	@ResponseBody
+	@RequestMapping(value = { "/getredis" }, method = { RequestMethod.POST, RequestMethod.GET })
+	public String getRedisValue(HttpServletResponse response, HttpServletRequest request) {
+		return (String) redis.get("aa");
+	}
 }

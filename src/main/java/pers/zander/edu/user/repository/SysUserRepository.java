@@ -15,7 +15,7 @@ import pers.zander.edu.user.domain.SysUser;
  */
 @Repository
 public interface SysUserRepository extends CrudRepository<SysUser,Long>,JpaSpecificationExecutor<SysUser>{
-	
+
 	@Query("from SysUser where name like %?1%")
 	public List<SysUser> findByName(String name);	
 	
